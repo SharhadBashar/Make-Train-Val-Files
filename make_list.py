@@ -5,6 +5,7 @@ SegmentationClassAug: 12032 Images
 '''
 import os
 from glob import glob
+from shutil import copyfile
 
 class Make_List:
   def __init__(self):
@@ -19,6 +20,7 @@ class Make_List:
     self.train_one_stage_full()
     self.val_one_stage_full()
     self.train_one_stage_original()
+    self.val_one_stage_original()
 
   def make_folder(self, folder_name = 'train'):
     if not (os.path.exists(self.train + folder_name)):
@@ -72,9 +74,6 @@ class Make_List:
     text_file.close()
 
   def train_one_stage_original(self, txt_file = 'one_stage/train_augvoc_original.txt', folder_name = 'one_stage'):
-    #1. make sure sbd image exists
-    #2. make sure corresponding voc image exists
-    #3. write to file
     self.make_folder(folder_name = folder_name)
     text_file = open(self.train + folder_name + '/train_augvoc_converted.txt', 'w')
     with open(self.train + txt_file, 'r') as lines:
@@ -90,5 +89,9 @@ class Make_List:
 
         text_file.write('voc/VOCdevkit/' + image + ' voc/VOCdevkit/' + mask + '\n')
     text_file.close()
+
+  def val_one_stage_original(self, folder_name = 'one_stage'):
+    self.make_folder(folder_name = folder_name)
+    copyfile(self.train + 'one_stage/val_voc_original.txt', self.train + 'one_stage/val_voc_converted.txt')
 
 Make_List()
