@@ -14,10 +14,10 @@ class Make_List:
     self.segmentation_class_aug = self.root + '/VOC2012/SegmentationClassAug/'
     self.train = self.root + '/ImageSets/'
 
-    # self.train_jsws()
-    # self.val_jsws()
-    # self.train_one_stage_full()
-    # self.val_one_stage_full()
+    self.train_jsws()
+    self.val_jsws()
+    self.train_one_stage_full()
+    self.val_one_stage_full()
     self.train_one_stage_original()
 
   def make_folder(self, folder_name = 'train'):
